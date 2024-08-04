@@ -11,6 +11,9 @@ def about():
 def brian_ai():
     return render_template("brian_ai.html", title="Brian.AI - ChatBot")
 
+@app.route("/projects")
+def projects():
+    return render_template("projects.html", title="Brian Frechette - Projects")
 
 if __name__ == "__main__":
     app.run(debug=True)

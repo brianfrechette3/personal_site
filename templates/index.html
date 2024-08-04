@@ -1,5 +1,291 @@
 {% extends "layout.html" %}
 
 {% block content %}
-    <h1>Brian's personal site</h1>
+    <!-- <h1>Brian's personal site</h1> -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
+    <script src="{{ url_for('static', filename='granim.min.js') }}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <canvas id="canvas-image-blending"></canvas>
+
+    <div class="main-content" style="text-align: left; width: 100%; position: absolute">
+        <div class="" style="height: 750px;">
+            <h1 style="padding-top: 230px; color: white;">Hi, my name is Brian Frechette</h1>
+            <p style="padding-top: 25px; color: white;" id="app"></p>
+        </div>
+        <h2 style="padding-bottom: 10px; padding-top: 10px;">Introduction</h2>
+
+        <!-- Introduction -->
+        <div class="flex-container-reverse" style="padding-bottom: 50px; padding-top: 20px;">
+          <div class="big-container-left" style="">
+            <p style="padding-bottom: 5px;">
+                Hi, my name is Brian Frechette. With over 3 years of professional experience, I have a track record 
+                and passion for solving hard technical problems across engineering and business teams.
+            </p>
+            <p style="padding-bottom: 5px;">
+                My interests include software development, big data, and machine learning / AI (obviously).
+            </p>
+            <p style="padding-bottom: 5px;">
+                Some of the main languages, tools, and processes I have professional experience with include:
+            <!-- </p>
+            <p style="padding-bottom: 5px;"></p> -->
+                <ul style="font-size: large;">
+                    <li>Python (Spark, Databricks, sklearn, PyTorch, Huggingface, pandas, Django)</li>
+                    <li>SQL (Spark, SQL Server, PostgreSQL, SQLite)</li>
+                    <li>Git (GitHub)</li>
+                    <li>Agile</li>
+                </ul>
+            </p>
+            <p style="padding-bottom: 5px;">
+                Outside of work - I enjoy running, lifting, traveling, good food, podcasts, and spending quality time with
+                my friends, family, and dog (Roman)!
+            </p>
+            <p class="time-text">Fun fact: I can solve a Rubik's cube. </p>
+          </div>
+          <div class="small-container-right">
+            <img src="static/img/headshot.jpeg" class="title-image">
+          </div>
+        </div>
+
+        <h2 style="padding-bottom: 20px">Education</h2>
+
+        <!-- UPenn -->
+        <!-- MSE-AI -->
+        <div class="flex-container-reverse" style="padding-bottom: 10px; padding-top: 20px;">
+          <div class="big-container-left">
+            <h3>University of Pennsylvania</h3>
+            <h4>Master of Science - Artificial Intelligence</h4>
+            <p class="time-text">Jan 2025 Start (Expected)</p>
+            <p>Coursework includes</p>
+            <ul class="about-bullets">
+                <li>Deep Learning (Neural Networks)</li>
+                <li>Natural Langauge Processing (NLP, LLM, GenAI)</li>
+                <li>GPU Computing (Machine Learning Ops)</li>
+                <li>AI Practicum (Capstone)</li>
+            </ul>
+            <!-- <button style="padding-bottom: 5px;" type="button" class="btn btn-outline-success" id="btn1">See more</button> -->
+          </div>
+          <div class="small-container-right">
+            <img src="static/img/penn.png" class="title-image">
+          </div>
+        </div>
+
+        <!-- MCIT -->
+        <div class="flex-container-reverse" style="padding-bottom: 10px; padding-top: 20px;">
+            <div class="big-container-left">
+              <h4>Master of Computer Information Technology (MCIT)</h4>
+              <p class="time-text">Aug 2022 - May 2024</p>
+              <p>GPA: 4.00 / 4.00</p>
+              <p>Requisite coursework</p>
+              <ul class="about-bullets">
+                  <li>Software Design</li>
+                  <li>Data Structures</li>
+                  <li>Algorithms</li>
+                  <li>Computer Systems Programming</li>
+                  <li>Computer Networks</li>
+                  <li>Discrete Math</li>
+                  <li>Statistics for Data Science</li>
+                  <li>Big Data Analytics</li>
+                  <li>Machine Learning for Data Science</li>
+                  <li>Introduction to Artificial Intelligence</li>
+              </ul>
+              <!-- <button style="padding-bottom: 5px;" type="button" class="btn btn-outline-success" id="btn1">See more</button> -->
+            </div>
+            <div class="small-container-right">
+              <img src="static/img/penn_engr.png" class="title-image">
+            </div>
+        </div>
+
+        <!-- UConn -->
+        <!-- Mech-Engr -->
+        <div class="flex-container-reverse" style="padding-bottom: 10px; padding-top: 20px;">
+            <div class="big-container-left">
+              <h3>University of Connecticut</h3>
+              <h4>Bachelor of Science - Mechanical Engineering</h4>
+              <p class="time-text">Aug 2017 - May 2021</p>
+              <p>GPA: 3.85 / 4.00</p>
+              <p>Requisite coursework</p>
+              <ul class="about-bullets">
+                  <li>Calculus I/II/III</li>
+                  <li>Differential Equations</li>
+                  <li>Linear Algebra</li>
+                  <li>Computational Mechanics</li>
+                  <li>Thermodynamics I/II</li>
+                  <li>Fluid Dynamics I/II</li>
+                  <li>Heat Transfer</li>
+                  <li>Propulsion</li>
+                  <li>Turbines & Centrifugal Machinery</li>
+                  <li>Senior Design Project</li>
+              </ul>
+              <!-- <button style="padding-bottom: 5px;" type="button" class="btn btn-outline-success" id="btn1">See more</button> -->
+            </div>
+            <div class="small-container-right">
+              <img src="static/img/uconn.jpg" class="title-image">
+            </div>
+          </div>
+
+        <h2 style="padding-top: 50px; padding-bottom: 20px">Professional Work</h2>
+
+        <!-- Company 1 -->
+        <!-- Work Experience #1 -->
+        <div class="flex-container-reverse" style="padding-bottom: 10px; padding-top: 20px;">
+          <div class="big-container-left">
+            <h3>RTX - Pratt & Whitney</h3>
+            <h4>Senior Analytics Engineer</h4>
+            <p class="time-text">May 2024 - Current</p>
+            <ul class="about-bullets">
+                <li>
+                    Serving as technical lead in a cross-functional project harmonizing
+                    several enterprise tools into central platform to decrease tool fragmentation,
+                    increase tool scalability, and provide a single source of truth for data outputs
+                </li>
+            </ul>
+            <!-- <button style="padding-bottom: 5px;" type="button" class="btn btn-outline-success" id="btn1">See more</button> -->
+          </div>
+          <div class="small-container-right">
+            <img src="static/img/rtx.jpeg" class="title-image">
+          </div>
+        </div>
+
+        <!-- Work Experience #2 -->
+        <div class="flex-container-reverse" style="padding-bottom: 10px; padding-top: 10px;">
+            <div class="big-container-left">
+              <h4>Analytics Engineer II</h4>
+              <p class="time-text">Jun 2023 - May 2024</p>
+              <ul class="about-bullets">
+                  <li>
+                      Trained a random forest machine learning model to predict engine shop visit
+                      cost with 90% accuracy for use in maximizing revenue over engine contract
+                  </li>
+                  <li>
+                     Refactored app’s ETL process to reduce runtime by 98% by identifying and
+                     replacing inefficient Python code with SQL
+                  </li>
+                  <li>
+                    Performed engine failure time analysis by fitting field data to Weibull
+                    probability distributions to assess engine design improvements relative to their expectation
+                  </li>
+              </ul>
+              <!-- <button style="padding-bottom: 5px;" type="button" class="btn btn-outline-success" id="btn2">See more</button> -->
+            </div>
+            <div class="small-container-right">
+                <img src="static/img/pw.png" class="title-image">
+            </div>
+          </div>
+
+          <!-- Work Experience #3 -->
+        <div class="flex-container-reverse" style="padding-bottom: 25px; padding-top: 10px;">
+            <div class="big-container-left">
+              <h4>Analytics Engineer I</h4>
+              <p class="time-text">Oct 2022 - Jun 2023</p>
+              <ul class="about-bullets">
+                  <li>
+                    Developed analytic to recommend cost-optimized engine work scopes to maintenance
+                    engineers by extracting current engine data, work scope benefit estimates, and
+                    engine life requirements
+                  </li>
+                  <li>
+                    Automated process to generate and email engine data report to maintenance engineers
+                    when an engine needs maintenance, providing an estimated time savings of 5 hours per engine event
+                  </li>
+                  <li>
+                    Leveraged full-stack software development via Agile, Git, and Django (Python, JavaScript, HTML, ORM)
+                    to deploy Python / SQL based analytics, using common data libraries (NumPy, pandas, scikit-learn, SciPy,
+                    Matplotlib, seaborn)
+                  </li>
+              </ul>
+              <!-- <button style="padding-bottom: 5px;" type="button" class="btn btn-outline-success" id="btn2">See more</button> -->
+            </div>
+            <div class="small-container-right">
+                <img src="static/img/rtx_companies.png" class="title-image">
+            </div>
+        </div>
+
+        <!-- Company 2 -->
+        <!-- Work Experience #4 -->
+        <div class="flex-container-reverse" style="padding-bottom: 10px; padding-top: 20px;">
+            <div class="big-container-left">
+              <h3>TRIUMPH</h3>
+              <h4>Systems Engineer II</h4>
+              <p class="time-text">Jun 2021 - Oct 2022</p>
+              <ul class="about-bullets">
+                  <li>
+                    Developed thermal system models using Engineering Equation Solver (EES) to design
+                    and analyze legacy and prototype environmental control systems (ECS) in response to
+                    new business requests (RFP, RFQ, RFI)
+                  </li>
+                  <li>
+                    Wrangled performance analysis data and generated relevant data visualizations to
+                    highlight stakeholders’ key interests
+                  </li>
+                  <li>
+                    Communicated with external stakeholders to clarify requirements and present current
+                    status and final output
+                  </li>
+              </ul>
+              <!-- <button style="padding-bottom: 5px;" type="button" class="btn btn-outline-success" id="btn2">See more</button> -->
+            </div>
+            <div class="small-container-right">
+                <img src="static/img/triumph.jpg" class="title-image">
+            </div>
+        </div>
+
+        <!-- Work Experience #5 -->
+        <div class="flex-container-reverse" style="padding-bottom: 25px; padding-top: 10px;">
+            <div class="big-container-left">
+                <h4>Systems Engineering Intern</h4>
+                <p class="time-text">Jun 2020 - Jun 2021</p>
+                <ul class="about-bullets">
+                    <li>
+                        Designed test automation tool to digitize data storage, eliminate human error,
+                        and reduce test turn-around time using macros with Excel VBA
+                    </li>
+                    <li>
+                        Modified VB script to automatically create custom templates for CAD engineering
+                        drawings in CATIA V5
+                    </li>
+                    <li>
+                        Performed lab acceptance testing procedures for OEM and MRO refrigerant screw compressors and
+                        thermal expansion valves
+                    </li>
+                </ul>
+                <!-- <button style="padding-bottom: 5px;" type="button" class="btn btn-outline-success" id="btn2">See more</button> -->
+            </div>
+            <div class="small-container-right">
+                <img src="static/img/triumph_group.png" class="title-image">
+            </div>
+        </div>
+
+        <!-- Company 3 -->
+        <!-- Work Experience #6 -->
+        <div class="flex-container-reverse" style="padding-bottom: 25px; padding-top: 20px;">
+            <div class="big-container-left">
+                <h3>University of Connecticut - Information Technology Services</h3>
+                <h4>IT Specialist</h4>
+                <p class="time-text">Sep 2018 - Jun 2021</p>
+                <ul class="about-bullets">
+                    <li>
+                        Responsible for imaging computers, installing, and maintaining hardware/software for UConn staff on
+                        Windows and MacOS
+                    </li>
+                    <li>
+                        Assisted users to reset passwords, check network connectivity, manage Active Directory accounts
+                    </li>
+                    <li>
+                        Maintained appropriate records, ticketing system, and communications to ensure proper tracking of
+                        necessary support tasks
+                    </li>
+                </ul>
+                <!-- <button style="padding-bottom: 5px;" type="button" class="btn btn-outline-success" id="btn2">See more</button> -->
+            </div>
+            <div class="small-container-right">
+                <img src="static/img/uconn_its.jpg" class="title-image">
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='index.js') }}" charset="utf-8"></script>
+
 {% endblock content %}
