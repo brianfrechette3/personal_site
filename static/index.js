@@ -292,71 +292,71 @@ var btnHobby4 = document.getElementById("hobbyBtn4");
 // Get the <span> element that closes the modal
 var spanModalHobby4 = document.getElementsByClassName("closeModalHobby4")[0];
 
-// When the user clicks on the button, open the modal
-btnHobby4.onclick = function() {
-  modalHobby4.style.display = "block";
-}
+// // When the user clicks on the button, open the modal
+// btnHobby4.onclick = function() {
+//   modalHobby4.style.display = "block";
+// }
 
-// When the user clicks on <span> (x), close the modal
-spanModalHobby4.onclick = function() {
-  modalHobby4.style.display = "none";
-}
+// // When the user clicks on <span> (x), close the modal
+// spanModalHobby4.onclick = function() {
+//   modalHobby4.style.display = "none";
+// }
 
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modalHobby4) {
-    modalHobby4.style.display = "none";
-  }
-}
+// // When the user clicks anywhere outside of the modal, close it
+// window.onclick = function(event) {
+//   if (event.target == modalHobby4) {
+//     modalHobby4.style.display = "none";
+//   }
+// }
 
-//BUTTON HOBBY 5
-var modalHobby5 = document.getElementById("modalHobby5");
+// //BUTTON HOBBY 5
+// var modalHobby5 = document.getElementById("modalHobby5");
 
-// Get the button that opens the modal
-var btnHobby5 = document.getElementById("hobbyBtn5");
+// // Get the button that opens the modal
+// var btnHobby5 = document.getElementById("hobbyBtn5");
 
-// Get the <span> element that closes the modal
-var spanModalHobby5 = document.getElementsByClassName("closeModalHobby5")[0];
+// // Get the <span> element that closes the modal
+// var spanModalHobby5 = document.getElementsByClassName("closeModalHobby5")[0];
 
-// When the user clicks on the button, open the modal
-btnHobby5.onclick = function() {
-  modalHobby5.style.display = "block";
-}
+// // When the user clicks on the button, open the modal
+// btnHobby5.onclick = function() {
+//   modalHobby5.style.display = "block";
+// }
 
-// When the user clicks on <span> (x), close the modal
-spanModalHobby5.onclick = function() {
-  modalHobby5.style.display = "none";
-}
+// // When the user clicks on <span> (x), close the modal
+// spanModalHobby5.onclick = function() {
+//   modalHobby5.style.display = "none";
+// }
 
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modalHobby5) {
-    modalHobby5.style.display = "none";
-  }
-}
+// // When the user clicks anywhere outside of the modal, close it
+// window.onclick = function(event) {
+//   if (event.target == modalHobby5) {
+//     modalHobby5.style.display = "none";
+//   }
+// }
 
-//BUTTON HOBBY 6
-var modalHobby6 = document.getElementById("modalHobby6");
+// //BUTTON HOBBY 6
+// var modalHobby6 = document.getElementById("modalHobby6");
 
-// Get the button that opens the modal
-var btnHobby6 = document.getElementById("hobbyBtn6");
+// // Get the button that opens the modal
+// var btnHobby6 = document.getElementById("hobbyBtn6");
 
-// Get the <span> element that closes the modal
-var spanModalHobby6 = document.getElementsByClassName("closeModalHobby6")[0];
+// // Get the <span> element that closes the modal
+// var spanModalHobby6 = document.getElementsByClassName("closeModalHobby6")[0];
 
-// When the user clicks on the button, open the modal
-btnHobby6.onclick = function() {
-  modalHobby6.style.display = "block";
-}
+// // When the user clicks on the button, open the modal
+// btnHobby6.onclick = function() {
+//   modalHobby6.style.display = "block";
+// }
 
-// When the user clicks on <span> (x), close the modal
-spanModalHobby6.onclick = function() {
-  modalHobby6.style.display = "none";
-}
+// // When the user clicks on <span> (x), close the modal
+// spanModalHobby6.onclick = function() {
+//   modalHobby6.style.display = "none";
+// }
 
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modalHobby6) {
-    modalHobby6.style.display = "none";
-  }
-}
+// // When the user clicks anywhere outside of the modal, close it
+// window.onclick = function(event) {
+//   if (event.target == modalHobby6) {
+//     modalHobby6.style.display = "none";
+//   }
+// }
