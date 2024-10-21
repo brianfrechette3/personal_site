@@ -1,4 +1,5 @@
 import os
+import random
 from flask import Flask, render_template, request, session
 from langchain_pinecone import PineconeVectorStore
 from langchain_openai import OpenAIEmbeddings
@@ -12,6 +13,7 @@ from langchain_community.chat_message_histories import ChatMessageHistory
 
 app = Flask(__name__)
 session_id = os.urandom(24)
+# session_id = random.randint(1, 9**9)
 app.secret_key = session_id
 
 @app.route("/")
@@ -52,7 +54,7 @@ def get_chatbot_response():
     contextualize_q_prompt = ChatPromptTemplate.from_messages(
         [
             ("system", contextualize_q_system_prompt),
-            MessagesPlaceholder("chat_history"),
+            MessagesPlaceholder("memory"),
             ("human", "{input}"),
         ]
     )
@@ -74,7 +76,7 @@ def get_chatbot_response():
     qa_prompt = ChatPromptTemplate.from_messages(
         [
             ("system", system_prompt),
-            MessagesPlaceholder("chat_history"),
+            MessagesPlaceholder("memory"),
             ("human", "{input}"),
         ]
     )
@@ -87,29 +89,49 @@ def get_chatbot_response():
         rag_chain,
         get_session_memory,
         input_messages_key="input",
-        history_messages_key="chat_history",
+        history_messages_key="memory",
         output_messages_key="answer",
     )
-
+    
     # Pass in user message, return answer
     try:
         response = conversational_rag_chain.invoke(
             {"input": request.form["user_message"]},
-            config={
-                "configurable": {"session_id": session_id}
-            },
+            # config={
+            #     "configurable": {"session_id": session_id}
+            # },
         )["answer"]
-    except:
+        store_message_in_session(request.form["user_message"], response)
+    except Exception as e:
+        print(f"Exception querying chain: {e}")
         return "I am sorry, the chatbot is currently undergoing maintenance at this time."
     return response
 
-store = {}
-def get_session_memory(session_id):
+def get_session_memory():
     """Return memory for current session"""
     
-    if session_id not in store:
-        store[session_id] = ChatMessageHistory()
-    return store[session_id]
+    if "memory" not in session:
+        session["memory"] = []
+    
+    # TODO: Update process when figuring out better solution
+    # for memory - this doesn't scale well
+    chat_hist = ChatMessageHistory()
+    for queries in session["memory"]:
+        chat_hist.add_user_message(queries["user"])
+        chat_hist.add_ai_message(queries["bot"])
+    return chat_hist
+
+def store_message_in_session(user_message, bot_response):
+    """Store the user message and bot response in session memory"""
+
+    if "memory" not in session:
+        session["memory"] = []
+        
+    # Append user message and bot response to the session memory
+    session["memory"] = session["memory"] + [{"user": user_message, "bot": bot_response}]
+    if len(session["memory"]) > 10:  # Keep the last 10 messages
+        print("removing oldest message from memory")
+        session["memory"].pop(0)  # Remove the oldest message
 
 
 if __name__ == "__main__":
