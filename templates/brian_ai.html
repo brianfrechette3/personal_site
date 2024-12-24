@@ -1,60 +1,209 @@
 {% extends "layout.html" %}
 
 {% block content %}
-    <!-- <h3>Still have questions about me or my experience?</h3>
-    <br>
-    <h3>Ask Brian.AI</h3>
-    <h3>Brian.AI is a RAG-based LLM (AI chatbot) informed by my publicly available data - here to fill in any of the gaps this personal site missed</h3>
-    <br>
-    <h3>Coming soon ...</h3> -->
-    <div class="container mt-5"></div>
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <!-- Introduction and Disclaimer Section -->
-                <div class="alert alert-info text-center" role="alert">
-                    <h4 class="alert-heading">Chat with Brian's AI assistant</h4>
-                    <p>Brian's assistant is designed to answer your questions about Brian's hobbies, interests, and career. Give it a try!</p>
-                    <hr>
-                    <p class="mb-0"><strong>Disclaimer:</strong> Please note that AI-generated responses may contain inaccuracies or "hallucinations." The information provided may not represent factual information about Brian. For 100% correct information, please reach out to Brian directly.</p>
-                </div>
-            </div>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Chat with Brian's AI assistant</h5>
-                        <div id="chat-container">
-                            <div id="chat-box"></div>
-                        </div>
-                        <div class="input-group mt-3">
-                            <input type="text" id="user-input" class="form-control" placeholder="Type your message...">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="button" id="send-btn">Send</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $("#send-btn").click(function() {
-                var userMessage = $("#user-input").val();
-                $("#chat-box").append('<p><strong>You:</strong> ' + userMessage + '</p>');
-                $("#user-input").val('');
-                $.ajax({
-                    type: 'POST',
-                    url: '/get-chatbot-response',
-                    data: { user_message: userMessage },
-                    success: function(data) {
-                        $("#chat-box").append('<p><strong>AI Assistant:</strong> ' + data + '</p>');
-                    }
-                });
-            });
-        });
-    </script>
-{% endblock content %}
+<!-- Outer container to center everything on the page -->
+<div class="container d-flex flex-column justify-content-center align-items-center" style="min-height: 100vh;">
+  <div class="row justify-content-center w-100">
+    <div class="col-md-8 mx-auto">
+
+      <!-- Alert heading remains at the top -->
+      <div class="alert alert-info text-center" role="alert">
+        <h4 class="alert-heading">Chat with Brian's AI assistant</h4>
+        <p>Brian's assistant is designed to answer your questions about Brian's hobbies, interests, and career. Give it a try!</p>
+        <hr>
+        <p class="mb-0">
+          <strong>Disclaimer:</strong> AI-generated responses may contain inaccuracies or "hallucinations." 
+          For 100% correct information, please reach out to Brian directly.
+        </p>
+      </div>
+
+      <!-- 
+        .chat-column is a flex container of a fixed or relative height 
+        so that the chat area can scroll internally without pushing 
+        down the input area.
+      -->
+      <div class="chat-column">
+
+        <!-- Chat container (scrollable) -->
+        <div class="chat-container" id="chat-box"></div>
+
+        <!-- Input area stays pinned at the bottom of the .chat-column -->
+        <div class="input-area">
+          <input
+            type="text"
+            id="user-input"
+            placeholder="Type your message here..."
+            autocomplete="off"
+          />
+          <button id="send-btn">Send</button>
+        </div>
+
+      </div> <!-- end .chat-column -->
+    </div>
+  </div>
+</div>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $("#send-btn").click(function() {
+      sendMessage();
+    });
+
+    $("#user-input").keydown(function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+
+    function sendMessage() {
+      var userMessage = $("#user-input").val().trim();
+      if (!userMessage) return;
+
+      // Append user's message
+      $("#chat-box").append(
+        '<div class="message user">' + userMessage + '</div>'
+      );
+      $("#user-input").val('');
+
+      // Auto-scroll to bottom
+      scrollToBottom();
+
+      // AJAX call to your backend
+      $.ajax({
+        type: 'POST',
+        url: '/get-chatbot-response',
+        data: { user_message: userMessage },
+        success: function(data) {
+          $("#chat-box").append(
+            '<div class="message assistant">' + data + '</div>'
+          );
+          scrollToBottom();
+        },
+        error: function() {
+          $("#chat-box").append(
+            '<div class="message assistant">Sorry, an error occurred.</div>'
+          );
+          scrollToBottom();
+        }
+      });
+    }
+
+    // Scroll to the bottom of the chat
+    function scrollToBottom() {
+      const chatBox = $("#chat-box");
+      chatBox.scrollTop(chatBox[0].scrollHeight);
+    }
+  });
+</script>
+
+<style>
+  /* Base reset */
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background-color: #202123;
+    color: #FFFFFF;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+  }
+
+  /* 
+    Chat-column is a vertical flex container with a fixed height.
+    The chat box fills available space and scrolls,
+    while the input-area stays at the bottom.
+  */
+  .chat-column {
+    display: flex;
+    flex-direction: column;
+    height: 50vh; /* Adjust as desired (e.g. 80vh or calc(100vh - 200px)) */
+  }
+
+  .chat-container {
+    flex: 1;               /* Fill remaining vertical space */
+    overflow-y: auto;      /* Scroll internally */
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #3e3f4b;
+    border-radius: 4px;
+    background-color: #343541;
+    margin-bottom: 1rem;   /* Space above input area */
+  }
+
+  /* Message bubbles */
+  .message {
+    max-width: 70%;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 8px;
+    line-height: 1.4;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+  .message.user {
+    align-self: flex-end;
+    background-color: #2b2c31;
+  }
+  .message.assistant {
+    align-self: flex-start;
+    background-color: #3e3f4b;
+  }
+
+  /* Input area pinned below the chat box inside .chat-column */
+  .input-area {
+    display: flex;
+    align-items: center;
+    background-color: #343541;
+    padding: 1rem;
+    border: 1px solid #3e3f4b;
+    border-radius: 4px;
+  }
+
+  .input-area input[type="text"] {
+    flex: 1;
+    background-color: #4b4d57;
+    border: none;
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 1rem;
+    outline: none;
+  }
+
+  .input-area button {
+    background-color: #6f72ff;
+    color: #fff;
+    border: none;
+    padding: 0.75rem 1rem;
+    margin-left: 0.75rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+  }
+
+  .input-area button:hover {
+    background-color: #4f51e6;
+  }
+
+  /* Optional custom scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #2b2c31;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #5c5f70;
+    border-radius: 4px;
+  }
+</style>
+{% endblock %}
