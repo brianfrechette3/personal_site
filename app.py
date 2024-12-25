@@ -44,7 +44,7 @@ def get_chatbot_response():
 
     # Use pinecone vector db as retriver, chat gpt as LLM, give basic prompt
     retriever = vector_store.as_retriever()  # Your retriever
-    llm = ChatOpenAI(temperature=0.9)
+    llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.9)
 
     # Contextualize question
     contextualize_q_system_prompt = """Given a chat history and the latest user question \
@@ -69,7 +69,8 @@ def get_chatbot_response():
         "Your purpose is to speak on Brian's behalf and answer questions about his hobbies, interests, professional experience, education, and career goals."
         "Use the given context to answer the question. "
         "If you don't know the answer, politely say you don't know. "
-        "Use three sentence maximum and keep the answer concise. "
+        "Keep the answer concise by default with one to three sentences. "
+        "If there is a multipart question or the response requires a lot of context, the answer can be lengthy. "
         "If any questions are asked that are inappropriate or irrelevant to Brian, let the user know your only purpose is to answer questions related to Brian's hobbies, interests, and career.."
         "Context: {context}"
     )

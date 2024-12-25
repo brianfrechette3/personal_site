@@ -105,6 +105,17 @@ With that aside - let's chat!
     // 3) Optional: scroll to bottom after initial message
     scrollToBottom();
   });
+
+  $("#user-input").on("focus", function() {
+  // Delay slightly so the keyboard animation can start
+  setTimeout(function() {
+    // Scroll input field into view
+    document.getElementById("user-input").scrollIntoView({ 
+      behavior: "smooth", 
+      block: "center" 
+    });
+  }, 300);
+});
 </script>
 
 <style>
