@@ -3,15 +3,15 @@
 {% block content %}
 <!-- Outer container: uses flex to fill screen and center horizontally -->
 <div 
-  class="container d-flex flex-column align-items-center" 
-  style="min-height: 100vh; padding-top: 1rem;"
+  class="container-fluid d-flex flex-column align-items-center px-1" 
+  style="min-height: 100vh; padding-top: 0.5rem;"
 >
   <div class="row w-100 justify-content-center flex-column" style="flex: 1;">
-    <div class="col-md-8 mx-auto" style="display: flex; flex-direction: column; flex: 1;">
+    <div class="col-12 mx-auto" style="display: flex; flex-direction: column; flex: 1;">
 
       <!-- SIMPLE HEADING (instead of an alert) -->
       <div class="assistant-heading text-center p-2" style="margin-bottom: 0.5rem;">
-        <h4 class="mb-0">Chat with Brian's AI Assistant</h4>
+        <h4 class="mb-0" style="color: #fff;">Chat with Brian's AI Assistant</h4>
       </div>
 
       <!-- FLEX WRAPPER that holds chat and input, so input is always visible at bottom -->
@@ -108,113 +108,129 @@ With that aside - let's chat!
 </script>
 
 <style>
-  /* Reset */
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-
-  /* Body: dark background, white text */
-  body.loaded {
-    background-color: #202123;
-    color: #FFFFFF;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    line-height: 1.5;
-  }
-
-  /* Simple heading for assistant */
-  .assistant-heading {
-    background-color: #343541;
-    border: 1px solid #3e3f4b;
-    border-radius: 4px;
-    color:#fff;
-  }
-  .assistant-heading h4 {
-    color:#fff;
-  }
-
-  /* CHAT CONTAINER:
-     - Flexible vertical space (flex: 1 in parent)
-     - max-height so it grows up to that point, then scrolls
-  */
-  .chat-container {
-    overflow-y: auto;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    border: 1px solid #3e3f4b;
-    border-radius: 4px;
-    background-color: #343541;
-    margin-bottom: 0.5rem;
-    max-height: 60vh; /* Adjust as needed */
-  }
-
-  /* Message bubbles */
-  .message {
-    max-width: 70%;
-    margin-bottom: 1rem;
-    padding: 1rem;
-    border-radius: 8px;
-    line-height: 1.4;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    font-size: 0.95rem;
-  }
-  .message.user {
-    align-self: flex-end;
-    background-color: #2b2c31;
-  }
-  .message.assistant {
-    align-self: flex-start;
-    background-color: #3e3f4b;
-  }
-
-  /* INPUT AREA */
-  .input-area {
-    display: flex;
-    align-items: center;
-    background-color: #343541;
-    padding: 0.75rem;
-    border: 1px solid #3e3f4b;
-    border-radius: 4px;
-  }
-  .input-area input[type="text"] {
-    flex: 1;
-    background-color: #4b4d57;
-    border: none;
-    padding: 0.75rem 1rem;
-    border-radius: 4px;
-    color: #fff;
-    font-size: 1rem;
-    outline: none;
-  }
-  .input-area button {
-    background-color: #6f72ff;
-    color: #fff;
-    border: none;
-    padding: 0.75rem 1rem;
-    margin-left: 0.75rem;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.3s;
-  }
-  .input-area button:hover {
-    background-color: #4f51e6;
-  }
-
-  /* Optional scrollbar styling */
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
-  ::-webkit-scrollbar-track {
-    background: #2b2c31;
-  }
-  ::-webkit-scrollbar-thumb {
-    background-color: #5c5f70;
-    border-radius: 4px;
-  }
+    /* Base reset */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body.loaded {
+      background-color: #202123;
+      color: #FFFFFF;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.5;
+    }
+  
+    .assistant-heading {
+      background-color: #343541;
+      border: 1px solid #3e3f4b;
+      border-radius: 4px;
+    }
+  
+    /* Chat container with dynamic growth */
+    .chat-container {
+      overflow-y: auto;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #3e3f4b;
+      border-radius: 4px;
+      background-color: #343541;
+      margin-bottom: 0.5rem;  /* reduce bottom margin so there's less gap above input */
+      max-height: 60vh;       /* grows until 60% of viewport, then scrolls */
+    }
+  
+    /* Message bubbles */
+    .message {
+      max-width: 70%;
+      margin-bottom: 1rem;
+      padding: 1rem;
+      border-radius: 8px;
+      line-height: 1.4;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      font-size: 0.95rem;
+    }
+    .message.user {
+      align-self: flex-end;
+      background-color: #2b2c31;
+    }
+    .message.assistant {
+      align-self: flex-start;
+      background-color: #3e3f4b;
+    }
+  
+    /* Input area */
+    .input-area {
+      display: flex;
+      align-items: center;
+      background-color: #343541;
+      padding: 0.75rem;
+      border: 1px solid #3e3f4b;
+      border-radius: 4px;
+    }
+    .input-area input[type="text"] {
+      flex: 1;
+      background-color: #4b4d57;
+      border: none;
+      padding: 0.75rem 1rem;
+      border-radius: 4px;
+      color: #fff;
+      font-size: 1rem;
+      outline: none;
+    }
+    .input-area button {
+      background-color: #6f72ff;
+      color: #fff;
+      border: none;
+      padding: 0.75rem 1rem;
+      margin-left: 0.75rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s;
+      white-space: nowrap; /* Ensures the text doesn't wrap and enlarge the button */
+    }
+    .input-area button:hover {
+      background-color: #4f51e6;
+    }
+  
+    /* 
+      MEDIA QUERY for mobile screens:
+      - Reduce the padding in .input-area
+      - Decrease button size to prevent overflow
+      - Possibly reduce font-size, margins, etc.
+    */
+    /* Remove or reduce extra spacing on smaller screens */
+    @media (max-width: 576px) {
+        .container-fluid {
+        padding-left: 0.25rem !important;
+        padding-right: 0.25rem !important;
+        }
+        .chat-container {
+            margin-bottom: 0.25rem; /* even less space above input on small screens */
+            max-height: 50vh;       /* optionally shrink max-height so keyboard won't push everything offscreen */
+        }
+        .input-area {
+            padding: 0.25rem;        /* narrower padding */
+        }
+        .input-area button {
+            padding: 0.5rem 0.75rem;
+            font-size: 0.9rem;
+        }
+    }
+  
+    /* Optional scrollbar styling */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #2b2c31;
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: #5c5f70;
+      border-radius: 4px;
+    }
 </style>
 {% endblock %}
 
